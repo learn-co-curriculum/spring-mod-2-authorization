@@ -16,7 +16,7 @@ referred to as AuthZ) and is what we'll discuss in this section.
 
 In our web application, we currently 2 URLs: `/hello` and `/status`. Let's say
 that we want any authenticated user to be able to access the `/hello` URL, while
-we only want "adminstrative" users to access the `/status` URL, because we
+we only want "administrative" users to access the `/status` URL, because we
 consider the status information for our application to be sensitive information.
 
 We can use the "request matching" functionality we used for AuthN, but instead
