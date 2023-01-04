@@ -1,4 +1,4 @@
-# Authorization
+# Code Along: Authorization
 
 ## Learning Goals
 
