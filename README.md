@@ -500,8 +500,7 @@ from the last lesson.
 ## Conclusion
 
 We have set up authorization in this lesson. Any production app will likely have
-some form of authentication and authorization. In the next lesson, we will look
-at how to use existing services to create auth flows.
+some form of authentication and authorization.
 
 ## References
 
