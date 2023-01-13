@@ -88,7 +88,7 @@ SELECT * FROM user_authorities;
 ```
 
 Now that we have updated our database to handle authorization, we need to update
-our application. In the `entity` package, create a `Authority` class:
+our application. In the `entity` package, create an `Authority` class:
 
 ```java
 package com.example.springsecuritydemo.entity;
@@ -125,7 +125,7 @@ users table. Note: In the last module, we saw how we could use the `@OneToMany`
 and `@ManyToOne` annotations when mapping a one-to-many relationship in Spring.
 We could choose to do the same here, but that would require us to create a user
 authority entity. Instead, we'll make use of the `@ManyToMany` annotations - just
-like we saw when introducing JPA for the first time in a couple of modules back.
+like we saw when introducing JPA for the first time a couple of modules back.
 
 Since we are defining the many-to-many relationship, we'll need to modify the
 `User` class as well. Add the following `authorites` field to the `User` class:
@@ -268,6 +268,42 @@ endpoint, we should now be able to see the message since the `admin` user has
 the `admin` authority attached to it:
 
 ![postman-admin-authorization](https://curriculum-content.s3.amazonaws.com/spring-mod-2/authorization/postman-admin-authorization.png)
+
+## 401 vs 403
+
+In this lesson, we saw both a 401 status and a 403 status returned to the user.
+So what's the difference?
+
+As we may recall from when we learned about servlets, 400 status codes are
+usually of client error. This means the client's request was unexpected and
+is refused. We've probably seen 404 error codes when we go to a website page
+that does not exist. This is an example of when we, the client, performed a
+request that the server, the website, was not expecting.
+
+Now that we know what 400 status codes generally mean, let's look at 401 status
+codes versus 403 status codes more.
+
+**401 status codes** generally have to do with authentication errors. It is
+usually seen as "401 Unauthorized", but this can be misleading since it is
+mostly used to signal a missing access token or invalid credentials. As we saw
+above, when we omit the user credentials by selecting "No Auth" in Postman, we
+see a 401 status code returned to us to let us not we are not authenticated.
+Postman also includes a description of what a 401 status code looks like too if
+we click on the code:
+
+![401-meaning](https://curriculum-content.s3.amazonaws.com/spring-mod-2/security/401-meaning.png)
+
+**403 status codes** are returned when there is an authorization error. It is
+usually seen as "403 Forbidden" and means that the credentials provided were
+valid; however, given the credentials, it is not associated with the appropriate
+permissions to perform the request. As we saw above, our user `mary` is not an
+administrator; therefore, she should not be authorized to hit the `/status`
+endpoint since she lacks the appropriate authorities. So when we used her
+credentials to authenticate in Postman, and hit the `/status` endpoint, we got
+back a 403 status code to tell us we don't have access to that endpoint. Postman
+also includes a description of the 403 status code as well:
+
+![403-meaning](https://curriculum-content.s3.amazonaws.com/spring-mod-2/security/403-meaning.png)
 
 ## Code Check
 
@@ -509,3 +545,4 @@ some form of authentication and authorization.
 - [Entity Mappings: Introduction to JPA Fetch Types](https://thorben-janssen.com/entity-mappings-introduction-jpa-fetchtypes/#FetchTypeEAGER_8211_Fetch_it_so_you8217ll_have_it_when_you_need_it)
 - [Hibernate Bidirectional Mapping Example with @JoinTable Annotation](https://www.concretepage.com/hibernate/hibernate-bidirectional-mapping-example-with-jointable-annotation)
 - [BezKoder: Spring Boot, Spring Security, PostgreSQL: JWT Authentication Example](https://www.bezkoder.com/spring-boot-security-postgresql-jwt-authentication/)
+- [auth0: Forbidden, Unauthorized, or What Else?](https://auth0.com/blog/forbidden-unauthorized-http-status-codes/#When-to-Use-401-Unauthorized)
