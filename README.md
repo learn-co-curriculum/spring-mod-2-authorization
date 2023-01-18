@@ -69,8 +69,8 @@ CREATE TABLE user_authorities (
     ON DELETE CASCADE
 );
 
-INSERT INTO users(id, username, password) VALUES(1, 'mary', 'test');
-INSERT INTO users(id, username, password) VALUES(2, 'admin', 'test');
+INSERT INTO users(id, username, password) VALUES(1, 'mary', crypt('test', gen_salt('bf')));
+INSERT INTO users(id, username, password) VALUES(2, 'admin', crypt('test', gen_salt('bf')));
 INSERT INTO authorities(id, name) VALUES(1, 'read');
 INSERT INTO authorities(id, name) VALUES(2, 'admin');
 INSERT INTO user_authorities(user_id, authority_id) VALUES(1, 1);
